@@ -5,17 +5,20 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { NavbarData } from "../navbar/navbar.models";
 import { HeroComponent } from "../hero/hero.component";
 import { HeroData } from "../hero/hero.models";
+import { ServiceMarqueeComponent } from "../service-marquee/service-marquee.component";
+import { ServiceMarqueeData } from "../service-marquee/service-marquee.models";
 
 
 
 @Component({
     selector: 'app-landing-page',
     standalone: true,
-    imports: [FooterComponent, NavbarComponent, HeroComponent],
+    imports: [FooterComponent, NavbarComponent, HeroComponent, ServiceMarqueeComponent],
     template: `
          <app-navbar [data]="navbarData" />
         <main>
         <app-hero [data]="heroData" />
+        <app-service-marquee [data]="marqueeData" />
         </main>
 
         <app-footer [data]="footerData" />
@@ -75,6 +78,18 @@ heroData: HeroData = {
     { label: 'Tecnologia 3D', position: 'top-right' },
     { label: 'Anestesia digital', position: 'bottom-left' },
     { label: 'Resultado imediato', position: 'bottom-right' },
+  ],
+};
+
+marqueeData: ServiceMarqueeData = {
+  items: [
+    'Clínica geral',
+    'Tratamento de canal',
+    'Aparelhos ortodônticos',
+    'Bichectomia',
+    'Próteses dentárias',
+    'Cirurgia geral',
+    'Implantes dentários',
   ],
 };
 }

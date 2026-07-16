@@ -3,17 +3,19 @@ import { FooterComponent } from "../footer/footer.component";
 import { FooterData } from "../footer/footer.models";
 import { NavbarComponent } from "../navbar/navbar.component";
 import { NavbarData } from "../navbar/navbar.models";
+import { HeroComponent } from "../hero/hero.component";
+import { HeroData } from "../hero/hero.models";
 
 
 
 @Component({
     selector: 'app-landing-page',
     standalone: true,
-    imports: [FooterComponent, NavbarComponent],
+    imports: [FooterComponent, NavbarComponent, HeroComponent],
     template: `
          <app-navbar [data]="navbarData" />
         <main>
-
+        <app-hero [data]="heroData" />
         </main>
 
         <app-footer [data]="footerData" />
@@ -50,5 +52,29 @@ export class LandingPageComponent {
   ],
   ctaLabel: 'Agendar',
   ctaHref: '#contato',
+};
+
+heroData: HeroData = {
+  kicker: 'Clínica odontológica em Rio de Janeiro',
+  titleLines: [
+    { text: 'Sorriso', accent: false },
+    { text: 'saudável,', accent: true },
+    { text: 'confiança', accent: false },
+    { text: 'renovada.', accent: true },
+  ],
+  body: 'Na RPC Dental, unimos tecnologia, conforto e atendimento humano para cuidar do seu sorriso com precisão. Clínica geral, implantes, ortodontia e muito mais.',
+  primaryCta: 'Agendar consulta',
+  primaryCtaHref: '#contato',
+  secondaryCta: 'Ver serviços',
+  secondaryCtaHref: '#servicos',
+  rating: '4.9',
+  reviewsNote: '320+ avaliações',
+  certifiedNote: 'Profissionais certificados',
+  chips: [
+    { label: 'Sem dor', position: 'top-left' },
+    { label: 'Tecnologia 3D', position: 'top-right' },
+    { label: 'Anestesia digital', position: 'bottom-left' },
+    { label: 'Resultado imediato', position: 'bottom-right' },
+  ],
 };
 }

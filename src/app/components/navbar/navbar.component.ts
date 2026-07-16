@@ -33,9 +33,10 @@ import { NavbarData } from "./navbar.models";
         </ul>
 
         <!-- CTA desktop -->
-        <a [href]="data.ctaHref" class="hidden md:flex items-center gap-2 font-body font-bold text-sm text-white bg-brand-red px-6 py-3.5 rounded-full no-underline animate-pulse-ring hover:bg-brand-red-dark transition-colors">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3l2.1-2.1c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1v3.4c0 .6-.4 1-1 1C9.9 21.8 2.2 14.1 2.2 4.5c0-.6.4-1 1-1H6.6c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1z" fill="#fff"/></svg>
-          {{ data.ctaLabel }}
+        <a [href]="data.ctaHref" class="group relative overflow-hidden hidden md:flex items-center gap-2 font-body font-bold text-sm text-white bg-brand-red px-6 py-3.5 rounded-full no-underline animate-pulse-ring hover:bg-brand-red-dark transition-colors">
+          <span class="pointer-events-none absolute top-0 left-0 h-full w-1/3 -skew-x-12 bg-white/30 blur-md -translate-x-[250%] group-hover:translate-x-[420%] transition-transform duration-700 ease-out"></span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="relative z-10 transition-transform duration-300 group-hover:-translate-x-0.5"><path d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3l2.1-2.1c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1v3.4c0 .6-.4 1-1 1C9.9 21.8 2.2 14.1 2.2 4.5c0-.6.4-1 1-1H6.6c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1z" fill="#fff"/></svg>
+          <span class="relative z-10">{{ data.ctaLabel }}</span>
         </a>
 
         <!-- toggle mobile -->
@@ -85,10 +86,10 @@ export class NavbarComponent {
     }
 
     navClass(): string {
-        const base = 'flex items-center justify-between rounded-full pl-6 pr-3 max-w-[1360px] mx-auto transition-all duration-300';
+        const base = 'flex items-center justify-between rounded-full pl-6 pr-3 mx-auto transition-all duration-300';
         const surface = this.scrolled()
-            ? 'py-2 bg-white/75 backdrop-blur-md shadow-[0_6px_20px_rgba(26,21,18,0.12)]'
-            : 'py-3 bg-white shadow-[0_8px_24px_rgba(26,21,18,0.08)]';
+            ? 'max-w-[1080px] py-2 bg-white/75 backdrop-blur-md shadow-[0_6px_20px_rgba(26,21,18,0.12)]'
+            : 'max-w-[1360px] py-3 bg-white shadow-[0_8px_24px_rgba(26,21,18,0.08)]';
         return `${base} ${surface}`;
     }
 

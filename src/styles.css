@@ -14,12 +14,17 @@
   --animate-ring-spin: ring-spin 50s linear infinite;
   --animate-ring-spin-rev: ring-spin-rev 38s linear infinite;
   --animate-pulse-ring: pulse-ring 2.6s ease-out infinite;
-  --animate-marquee: marquee 22s linear infinite;
+  --animate-marquee: marquee 40s linear infinite;
   --animate-float-chip-1: float-chip-1 4.6s ease-in-out infinite;
   --animate-float-chip-2: float-chip-2 5.2s ease-in-out infinite;
   --animate-sparkle-spin: sparkle-spin 3.5s ease-in-out infinite;
   --animate-seal-spin: ring-spin 26s linear infinite;
   --animate-reveal-up: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html,
+body {
+  background-color: var(--color-brand-bg);
 }
 
 @keyframes tooth-bob {

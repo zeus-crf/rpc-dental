@@ -124,14 +124,14 @@ export class LandingPageComponent {
         ],
         body: 'Cada procedimento é executado com instrumentação de última geração e protocolos internacionais de excelência clínica.',
         cards: [
-            { kicker: 'Cirurgia', title: 'Implantes', description: 'Osseointegração de precisão cirúrgica.', href: '#contato', icon: 'implant', size: 'tall' },
-            { kicker: 'Estética', title: 'Bichectomia', description: 'Contorno facial refinado.', href: '#contato', icon: 'diamond', size: 'normal' },
-            { kicker: 'Alinhamento', title: 'Ortodontia', description: 'Alinhadores invisíveis & aparelhos fixos.', href: '#contato', icon: 'aligner', size: 'normal' },
-            { kicker: 'Reabilitação', title: 'Próteses', description: 'Reabilitação total com dignidade.', href: '#contato', icon: 'prosthesis', size: 'normal' },
-            { kicker: 'Cirurgia geral', title: 'Cirurgia', description: 'Extrações e sisos com anestesia digital.', href: '#contato', icon: 'syringe', size: 'normal' },
-            { kicker: 'Endodontia', title: 'Canal', description: 'Endodontia moderna e indolor.', href: '#contato', icon: 'canal', size: 'normal' },
-            { kicker: 'Saúde', title: 'Clínica geral', description: 'A saúde que sustenta tudo.', href: '#contato', icon: 'mirror', size: 'normal' },
-            { kicker: 'Agende', title: 'Fale com um especialista', description: 'Consulta sem compromisso pelo WhatsApp.', href: '#contato', icon: 'whatsapp', size: 'normal', cta: true },
+            { kicker: 'Cirurgia', title: 'Implantes', description: 'Osseointegração de precisão cirúrgica.', href: '#contato', icon: 'implant', tone: 'gray', gridClass: 'lg:col-span-8 lg:row-span-2 min-h-[320px] lg:min-h-[540px]' },
+            { kicker: 'Estética', title: 'Bichectomia', description: 'Contorno facial refinado.', href: '#contato', icon: 'diamond', tone: 'white', gridClass: 'lg:col-span-4 min-h-[200px] lg:self-start', iconBehind: true },
+            { kicker: 'Alinhamento', title: 'Ortodontia', description: 'Alinhadores invisíveis & aparelhos fixos.', href: '#contato', icon: 'aligner', tone: 'gray', gridClass: 'lg:col-span-4 min-h-[240px]' },
+            { kicker: 'Reabilitação', title: 'Próteses', description: 'Reabilitação total com dignidade.', href: '#contato', icon: 'prosthesis', tone: 'white', gridClass: 'lg:col-span-8 min-h-[240px]' },
+            { kicker: 'Cirurgia geral', title: 'Cirurgia', description: 'Extrações e sisos com anestesia digital.', href: '#contato', icon: 'probe', tone: 'gray', gridClass: 'lg:col-span-4 min-h-[240px]' },
+            { kicker: 'Endodontia', title: 'Canal', description: 'Endodontia moderna e indolor.', href: '#contato', icon: 'canal', tone: 'white', gridClass: 'lg:col-span-4 min-h-[240px]' },
+            { kicker: 'Saúde', title: 'Clínica geral', description: 'A saúde que sustenta tudo.', href: '#contato', icon: 'mirror', tone: 'gray', gridClass: 'lg:col-span-4 min-h-[240px]' },
+            { kicker: 'Agende', title: 'Fale com um especialista', description: 'Consulta sem compromisso pelo WhatsApp.', href: '#contato', icon: 'whatsapp', tone: 'white', gridClass: 'lg:col-span-4 min-h-[240px]', cta: true },
         ],
     };
 

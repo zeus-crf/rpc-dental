@@ -8,12 +8,12 @@ export type ServiceIcon =
   | 'diamond'
   | 'aligner'
   | 'prosthesis'
-  | 'syringe'
+  | 'probe'
   | 'canal'
   | 'mirror'
   | 'whatsapp';
 
-export type ServiceSize = 'tall' | 'normal';
+export type ServiceTone = 'gray' | 'white';
 
 export interface ServiceCard {
   kicker: string;
@@ -21,7 +21,9 @@ export interface ServiceCard {
   description: string;
   href: string;
   icon: ServiceIcon;
-  size: ServiceSize;
+  tone: ServiceTone;
+  gridClass: string;
+  iconBehind?: boolean;
   cta?: boolean;
 }
 

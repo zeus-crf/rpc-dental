@@ -12,18 +12,18 @@ const CHIP_POSITION_CLASSES: Record<HeroChipPosition, string> = {
   selector: 'app-hero',
   standalone: true,
   template: `
-    <section class="bg-brand-bg px-6 md:px-10 pt-16 pb-0">
+    <section class="bg-brand-bg px-6 md:px-10 pt-16 pb-[100px]">
      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
 
       <div>
-        <div class="inline-flex items-center gap-2 bg-white rounded-full px-4.5 py-2.5 shadow-[0_4px_14px_rgba(26,21,18,0.06)]">
+        <!-- <div class="inline-flex items-center gap-2 bg-white rounded-full px-4.5 py-2.5 shadow-[0_4px_14px_rgba(26,21,18,0.06)]">
           <svg width="13" height="13" viewBox="0 0 24 24" class="animate-sparkle-spin">
             <path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#D62828"/>
           </svg>
           <span class="font-body font-bold text-[11.5px] text-brand-red tracking-wide uppercase">{{ data.kicker }}</span>
-        </div>
+        </div> -->
 
-        <h1 class="font-display font-extrabold text-[42px] md:text-[60px] leading-[1.08] text-brand-dark mt-6">
+        <h1 class="font-display font-extrabold [-webkit-text-stroke:0.7px_currentColor] text-[42px] md:text-[60px] leading-[1.08] text-brand-dark mt-6">
           @for (line of data.titleLines; track $index) {
             @if (line.underline) {
               <span class="relative inline-block" [class.text-brand-red]="line.accent">{{ line.text }}
@@ -43,14 +43,15 @@ const CHIP_POSITION_CLASSES: Record<HeroChipPosition, string> = {
 
         <div class="flex flex-wrap gap-4 mt-8">
           <a [href]="data.primaryCtaHref"
-             class="flex items-center gap-2 font-body font-bold text-[15px] text-white bg-brand-red px-7 py-4 rounded-full no-underline shadow-[0_6px_18px_rgba(214,40,40,0.25)] hover:bg-brand-red-dark hover:-translate-y-0.5 transition-all">
-            {{ data.primaryCta }}
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+             class="group relative overflow-hidden flex items-center gap-2 font-body font-bold text-[15px] text-white bg-brand-red px-7 py-4 rounded-full no-underline shadow-[0_6px_18px_rgba(214,40,40,0.25)] hover:bg-brand-red-dark hover:-translate-y-0.5 transition-all">
+            <span class="pointer-events-none absolute top-0 left-0 h-full w-1/3 -skew-x-12 bg-white/30 blur-md -translate-x-[250%] group-hover:translate-x-[420%] transition-transform duration-700 ease-out"></span>
+            <span class="relative z-10">{{ data.primaryCta }}</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="relative z-10 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <a [href]="data.secondaryCtaHref"
+          <!-- <a [href]="data.secondaryCtaHref"
              class="font-body font-bold text-[15px] text-brand-dark bg-white px-7 py-4 rounded-full no-underline hover:bg-brand-ink/[0.06] hover:-translate-y-0.5 transition-all">
             {{ data.secondaryCta }}
-          </a>
+          </a> -->
         </div>
 
         <div class="flex flex-wrap items-center gap-5 mt-8">

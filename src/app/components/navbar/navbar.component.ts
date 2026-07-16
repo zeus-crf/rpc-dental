@@ -1,17 +1,17 @@
-import { Component, Input, signal } from "@angular/core";
+import { Component, HostListener, Input, signal } from "@angular/core";
 import { NavbarData } from "./navbar.models";
-import { sign } from "crypto";
 
 @Component({
     selector: 'app-navbar',
     standalone: true,
      template: `
-    <header class="sticky top-0 z-50 bg-brand-bg pt-7 px-10 md:px-10">
-      <nav class="flex items-center justify-between bg-white rounded-full pl-6 pr-3 py-3 shadow-[0_8px_24px_rgba(26,21,18,0.08)] max-w-[1360px] mx-auto">
+    <header [class]="headerClass()">
+      <nav [class]="navClass()">
 
         <a href="#inicio" class="flex items-center gap-2.5 no-underline">
-          <svg width="34" height="34" viewBox="0 0 34 34" class="flex-none">
-            <circle cx="17" cy="17" r="17" fill="#E2453B"/>
+          <svg width="34" height="34" viewBox="0 0 34 34" class="flex-none transition-all duration-300"
+               [class.w-8]="scrolled()" [class.h-8]="scrolled()">
+            <circle cx="17" cy="17" r="17" fill="#D62828"/>
             <path d="M17 9 C12 9 9 12 9.6 16.5 C10 19.5 11.5 22 13 24.5 C13.8 25.8 15 26 15.4 24.6 C15.8 23.2 16 21.5 17 21.5 C18 21.5 18.2 23.2 18.6 24.6 C19 26 20.2 25.8 21 24.5 C22.5 22 24 19.5 24.4 16.5 C25 12 22 9 17 9 Z" fill="#fff"/>
           </svg>
           <span class="flex flex-col leading-none">
@@ -24,7 +24,8 @@ import { sign } from "crypto";
         <ul class="hidden md:flex gap-8 list-none p-0 m-0">
           @for (link of data.navLinks; track link.label) {
             <li>
-              <a [href]="link.href" class="font-body text-sm text-brand-dark no-underline hover:text-brand-red transition-colors">
+              <a [href]="link.href"
+                 class="relative font-body text-sm text-brand-dark no-underline transition-colors hover:text-brand-red after:content-[''] after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:w-0 after:rounded-full after:bg-brand-red after:transition-[width] after:duration-300 hover:after:w-full">
                 {{ link.label }}
               </a>
             </li>
@@ -71,6 +72,25 @@ export class NavbarComponent {
     @Input({required: true }) data!: NavbarData;
 
     isOpen = signal(false);
+    scrolled = signal(false);
+
+    @HostListener('window:scroll')
+    onScroll(): void {
+        this.scrolled.set(window.scrollY > 20);
+    }
+
+    headerClass(): string {
+        const base = 'sticky top-0 z-50 px-10 md:px-10 transition-all duration-300';
+        return `${base} ${this.scrolled() ? 'bg-transparent pt-3 pb-2' : 'bg-brand-bg pt-7'}`;
+    }
+
+    navClass(): string {
+        const base = 'flex items-center justify-between rounded-full pl-6 pr-3 max-w-[1360px] mx-auto transition-all duration-300';
+        const surface = this.scrolled()
+            ? 'py-2 bg-white/75 backdrop-blur-md shadow-[0_6px_20px_rgba(26,21,18,0.12)]'
+            : 'py-3 bg-white shadow-[0_8px_24px_rgba(26,21,18,0.08)]';
+        return `${base} ${surface}`;
+    }
 
     toggleMenu(): void {
         this.isOpen.update(v => !v)

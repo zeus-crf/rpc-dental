@@ -12,73 +12,107 @@ const CHIP_POSITION_CLASSES: Record<HeroChipPosition, string> = {
   selector: 'app-hero',
   standalone: true,
   template: `
-    <section class="bg-brand-bg px-10 md:px-14 pt-16 pb-0 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
+    <section class="bg-brand-bg px-6 md:px-10 pt-16 pb-0">
+     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
 
       <div>
         <div class="inline-flex items-center gap-2 bg-white rounded-full px-4.5 py-2.5 shadow-[0_4px_14px_rgba(26,21,18,0.06)]">
           <svg width="13" height="13" viewBox="0 0 24 24" class="animate-sparkle-spin">
-            <path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#E2453B"/>
+            <path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#D62828"/>
           </svg>
           <span class="font-body font-bold text-[11.5px] text-brand-red tracking-wide uppercase">{{ data.kicker }}</span>
         </div>
 
         <h1 class="font-display font-extrabold text-[42px] md:text-[60px] leading-[1.08] text-brand-dark mt-6">
           @for (line of data.titleLines; track $index) {
-            <span [class.text-brand-red]="line.accent">{{ line.text }}</span><br>
+            @if (line.underline) {
+              <span class="relative inline-block" [class.text-brand-red]="line.accent">{{ line.text }}
+                <svg class="absolute left-0 -bottom-1.5 w-[102%] h-[0.28em]  overflow-visible" viewBox="0 0 300 16" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M4 10 C 55 4, 110 13, 165 8 S 255 5, 296 11" stroke="#D62828" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+              </span><br>
+            } @else {
+              <span [class.text-brand-red]="line.accent">{{ line.text }}</span><br>
+            }
           }
         </h1>
 
-        <p class="font-body text-base md:text-[17px] leading-[1.75] text-brand-ink-68 mt-6 max-w-[460px]">
+        <p class="font-body text-base md:text-[17px] leading-[1.75] text-brand-ink/70 mt-6 max-w-[460px]">
           {{ data.body }}
         </p>
 
         <div class="flex flex-wrap gap-4 mt-8">
           <a [href]="data.primaryCtaHref"
-             class="flex items-center gap-2 font-body font-bold text-[15px] text-white bg-brand-red px-7 py-4 rounded-full no-underline shadow-[0_6px_18px_rgba(226,69,59,0.25)] hover:bg-brand-red-dark hover:-translate-y-0.5 transition-all">
+             class="flex items-center gap-2 font-body font-bold text-[15px] text-white bg-brand-red px-7 py-4 rounded-full no-underline shadow-[0_6px_18px_rgba(214,40,40,0.25)] hover:bg-brand-red-dark hover:-translate-y-0.5 transition-all">
             {{ data.primaryCta }}
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <a [href]="data.secondaryCtaHref"
-             class="font-body font-bold text-[15px] text-brand-dark bg-white px-7 py-4 rounded-full no-underline hover:bg-brand-ink-08 hover:-translate-y-0.5 transition-all">
+             class="font-body font-bold text-[15px] text-brand-dark bg-white px-7 py-4 rounded-full no-underline hover:bg-brand-ink/[0.06] hover:-translate-y-0.5 transition-all">
             {{ data.secondaryCta }}
           </a>
         </div>
 
         <div class="flex flex-wrap items-center gap-5 mt-8">
           <div class="flex items-center gap-2">
-            <div class="flex gap-0.5">
+            <!-- <div class="flex gap-0.5">
               @for (star of [1,2,3,4,5]; track star) {
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="#E2453B"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1z"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#D62828"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1z"/></svg>
               }
-            </div>
-            <span class="font-body font-bold text-sm text-brand-dark">{{ data.rating }}</span>
-            <span class="font-body text-[13px] text-brand-ink-55">· {{ data.reviewsNote }}</span>
+            </div> -->
+            <!-- <span class="font-body font-bold text-sm text-brand-dark">{{ data.rating }}</span>
+            <span class="font-body text-[13px] text-brand-ink/55">· {{ data.reviewsNote }}</span> -->
           </div>
-          <div class="flex items-center gap-1.5">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.4 8.6-7 10-3.6-1.4-7-5-7-10V5z" fill="#E2453B"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span class="font-body text-[13px] text-brand-ink-60">{{ data.certifiedNote }}</span>
-          </div>
+          <!-- <div class="flex items-center gap-1.5">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.4 8.6-7 10-3.6-1.4-7-5-7-10V5z" fill="#D62828"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="font-body text-[13px] text-brand-ink/60">{{ data.certifiedNote }}</span>
+          </div> -->
         </div>
       </div>
 
       <div class="relative h-[380px] md:h-[460px] flex items-center justify-center">
-        <div class="absolute w-[340px] h-[340px] rounded-full" style="background: radial-gradient(circle, rgba(226,69,59,.14) 0%, rgba(226,69,59,0) 70%)"></div>
-        <div class="absolute w-[300px] h-[300px] rounded-full border-2 border-dashed border-brand-red/30 animate-ring-spin"></div>
-        <div class="absolute w-[240px] h-[240px] rounded-full border border-dashed border-brand-red/25 animate-ring-spin-rev"></div>
+        <!-- soft glow -->
+        <div class="absolute w-[420px] h-[420px] rounded-full" style="background: radial-gradient(circle, rgba(214,40,40,.13) 0%, rgba(214,40,40,0) 62%)"></div>
+        <!-- outer dashed ring -->
+        <div class="absolute w-[430px] h-[430px] rounded-full border border-dashed border-brand-red/25 animate-ring-spin"></div>
+        <!-- inner solid ring -->
+        <div class="absolute w-[320px] h-[320px] rounded-full border border-brand-red/20"></div>
 
-        <svg width="160" height="190" viewBox="0 0 240 280" class="relative z-[2] animate-tooth-bob drop-shadow-[0_20px_26px_rgba(226,69,59,0.25)]">
-          <path d="M120 34 C74 34 46 66 50 104 C53 132 64 156 75 180 C82 196 92 200 97 184 C102 168 106 152 120 152 C134 152 138 168 143 184 C148 200 158 196 165 180 C176 156 187 132 190 104 C194 66 166 34 120 34 Z" fill="#FBF8F6" stroke="#E2453B" stroke-width="2.5"/>
-          <path d="M96 66 C104 58 116 55 126 58" stroke="rgba(226,69,59,.35)" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <svg width="195" height="210" viewBox="0 0 200 216" class="relative z-[2] animate-tooth-bob drop-shadow-[0_22px_30px_rgba(214,40,40,0.22)]">
+          <defs>
+            <linearGradient id="toothFill" x1="100" y1="34" x2="100" y2="200" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFFFFF"/>
+              <stop offset="0.55" stop-color="#FDE4E1"/>
+              <stop offset="1" stop-color="#F6C9C5"/>
+            </linearGradient>
+          </defs>
+          <path d="M50 40 C60 31 78 35 100 35 C122 35 140 31 150 40 C168 52 172 78 168 104 C164 131 156 159 146 182 C141 194 128 196 123 183 C118 168 114 152 100 152 C86 152 82 168 77 183 C72 196 59 194 54 182 C44 159 36 131 32 104 C28 78 32 52 50 40 Z"
+                fill="url(#toothFill)" stroke="#D62828" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M66 78 C74 69 87 67 96 71" stroke="rgba(214,40,40,.4)" stroke-width="5" stroke-linecap="round" fill="none"/>
         </svg>
 
         @for (chip of data.chips; track chip.label) {
           <div class="absolute flex items-center gap-1.5 bg-white rounded-full px-4 py-2.5 shadow-[0_8px_20px_rgba(26,21,18,0.1)]"
                [class]="chipPositionClass(chip.position)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="#E2453B"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1z"/></svg>
+            @switch (chip.icon) {
+              @case ('sparkle-filled') {
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#D62828"><path d="M12 2l1.9 8.1L22 12l-8.1 1.9L12 22l-1.9-8.1L2 12l8.1-1.9z"/></svg>
+              }
+              @case ('sparkle-outline') {
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 7.4L21 12l-7.4 1.6L12 21l-1.6-7.4L3 12l7.4-1.6z" stroke="#D62828" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              }
+              @case ('diamond-outline') {
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2.5L20.5 12 12 21.5 3.5 12z" stroke="#D62828" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              }
+              @case ('star-filled') {
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#D62828"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1z"/></svg>
+              }
+            }
             <span class="font-body font-bold text-[13px] text-brand-dark">{{ chip.label }}</span>
           </div>
         }
       </div>
+     </div>
     </section>
   `,
 })

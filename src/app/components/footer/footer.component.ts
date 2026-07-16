@@ -5,12 +5,13 @@ import { FooterData } from "./footer.models";
   selector: 'app-footer',
   standalone: true,
   template: `
-    <footer class="bg-brand-dark px-16 pt-16 pb-8">
+    <footer class="bg-brand-dark px-6 md:px-10 pt-16 pb-8">
+     <div class="max-w-6xl mx-auto">
       <div class="flex flex-col md:flex-row justify-between gap-12 pb-11">
 
         <div class="max-w-xs">
           <div class="flex items-center gap-2 mb-4">
-            <svg width="28" height="28" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#E2453B"/><path d="M17 9 C12 9 9 12 9.6 16.5 C10 19.5 11.5 22 13 24.5 C13.8 25.8 15 26 15.4 24.6 C15.8 23.2 16 21.5 17 21.5 C18 21.5 18.2 23.2 18.6 24.6 C19 26 20.2 25.8 21 24.5 C22.5 22 24 19.5 24.4 16.5 C25 12 22 9 17 9 Z" fill="#fff"/></svg>
+            <svg width="28" height="28" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#D62828"/><path d="M17 9 C12 9 9 12 9.6 16.5 C10 19.5 11.5 22 13 24.5 C13.8 25.8 15 26 15.4 24.6 C15.8 23.2 16 21.5 17 21.5 C18 21.5 18.2 23.2 18.6 24.6 C19 26 20.2 25.8 21 24.5 C22.5 22 24 19.5 24.4 16.5 C25 12 22 9 17 9 Z" fill="#fff"/></svg>
             <span class="font-display font-bold text-lg text-white">RPC <span class="text-brand-red">Dental</span></span>
           </div>
           <p class="text-white/50 text-sm font-body leading-relaxed mb-5">{{ data.tagline }}</p>
@@ -66,6 +67,7 @@ import { FooterData } from "./footer.models";
       <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between gap-3">
         <div class="text-white/40 text-xs font-body">{{ data.copyright }}</div>
       </div>
+     </div>
     </footer>
   `,
 })

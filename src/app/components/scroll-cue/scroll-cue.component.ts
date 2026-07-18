@@ -1,8 +1,6 @@
-import { Component, HostListener, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { IntroService } from '../../services/intro.service';
-
-/** Quanto o usuário precisa rolar para a dica ter cumprido seu papel. */
-const HIDE_AFTER_PX = 40;
+import { ScrollStateService } from '../../services/scroll-state.service';
 
 @Component({
   selector: 'app-scroll-cue',
@@ -25,19 +23,10 @@ const HIDE_AFTER_PX = 40;
 })
 export class ScrollCueComponent {
   private intro = inject(IntroService);
+  private scroll = inject(ScrollStateService);
 
-  /** Uma vez rolado, a dica cumpriu seu papel e não volta. */
-  private dismissed = signal(false);
-
-  /** Aparece depois da cortina e some no primeiro scroll de verdade. */
+  /** Aparece depois da cortina e some no primeiro scroll, para não voltar. */
   readonly visible = computed(
-    () => this.intro.contentReleased() && !this.dismissed()
+    () => this.intro.contentReleased() && !this.scroll.scrolled()
   );
-
-  @HostListener('window:scroll')
-  onScroll(): void {
-    if (window.scrollY > HIDE_AFTER_PX) {
-      this.dismissed.set(true);
-    }
-  }
 }

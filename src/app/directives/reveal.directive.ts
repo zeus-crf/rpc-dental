@@ -52,9 +52,13 @@ export class RevealDirective {
         return;
       }
 
-      // A margem negativa em porcentagem, e não em pixels, mantém o gatilho
-      // proporcional: numa tela alta uma seção pode estar tecnicamente visível
-      // e ainda assim longe da atenção do usuário.
+      // A margem tem que ser em pixels, não em porcentagem. Com porcentagem, o
+      // último elemento da página nunca revelava: no fim do scroll o topo dele
+      // para a `altura da tela - altura dele`, e se ele for mais curto que a
+      // margem esse ponto nunca cruza o gatilho.
+      //
+      // Em pixels, telas altas também deixam a seção seguinte assomar e revelar
+      // junto com a primeira dobra, preenchendo o espaço que sobraria vazio.
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting) {
@@ -62,7 +66,7 @@ export class RevealDirective {
             observer.disconnect();
           }
         },
-        { threshold: 0, rootMargin: '0px 0px -30% 0px' }
+        { threshold: 0, rootMargin: '0px 0px -80px 0px' }
       );
       observer.observe(this.host);
     });

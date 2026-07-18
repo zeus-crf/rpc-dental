@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import { ScrollCueComponent } from './scroll-cue.component';
 import { IntroService } from '../../services/intro.service';
+import { ScrollStateService } from '../../services/scroll-state.service';
 
-/** Dublê que deixa o teste controlar quando a cortina "termina". */
 class IntroServiceStub {
   readonly contentReleased = signal(false);
   finish(): void {
@@ -11,19 +11,26 @@ class IntroServiceStub {
   }
 }
 
-function setScrollY(value: number): void {
-  Object.defineProperty(window, 'scrollY', { value, configurable: true });
+class ScrollStateStub {
+  readonly scrolled = signal(false);
+  scroll(): void {
+    this.scrolled.set(true);
+  }
 }
 
 describe('ScrollCueComponent', () => {
   let intro: IntroServiceStub;
+  let scroll: ScrollStateStub;
 
   beforeEach(async () => {
     intro = new IntroServiceStub();
-    setScrollY(0);
+    scroll = new ScrollStateStub();
     await TestBed.configureTestingModule({
       imports: [ScrollCueComponent],
-      providers: [{ provide: IntroService, useValue: intro }],
+      providers: [
+        { provide: IntroService, useValue: intro },
+        { provide: ScrollStateService, useValue: scroll },
+      ],
     }).compileComponents();
   });
 
@@ -33,58 +40,40 @@ describe('ScrollCueComponent', () => {
     return fixture;
   }
 
+  function cue(fixture: ReturnType<typeof render>): HTMLElement | null {
+    return fixture.nativeElement.querySelector('.scroll-cue');
+  }
+
   it('fica escondida enquanto a cortina não termina', () => {
-    const fixture = render();
-    expect(fixture.nativeElement.querySelector('.scroll-cue')).toBeNull();
+    expect(cue(render())).toBeNull();
   });
 
-  it('aparece no DOM quando a cortina termina', () => {
+  it('aparece quando a cortina termina', () => {
     const fixture = render();
     intro.finish();
     fixture.detectChanges();
 
-    const cue = fixture.nativeElement.querySelector('.scroll-cue');
-    expect(cue).not.toBeNull();
-    expect(cue.textContent).toContain('Role para explorar');
+    expect(cue(fixture)).not.toBeNull();
+    expect(cue(fixture)!.textContent).toContain('Role para explorar');
   });
 
-  it('some ao rolar e não volta', () => {
+  it('some quando o usuário rola', () => {
     const fixture = render();
     intro.finish();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.scroll-cue')).not.toBeNull();
+    expect(cue(fixture)).not.toBeNull();
 
-    setScrollY(200);
-    window.dispatchEvent(new Event('scroll'));
+    scroll.scroll();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.scroll-cue')).toBeNull();
-
-    setScrollY(0);
-    window.dispatchEvent(new Event('scroll'));
-    fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.scroll-cue')).toBeNull();
+    expect(cue(fixture)).toBeNull();
   });
 
   it('não aparece se o usuário rolou durante a cortina', () => {
     const fixture = render();
-
-    setScrollY(500);
-    window.dispatchEvent(new Event('scroll'));
+    scroll.scroll();
     intro.finish();
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('.scroll-cue')).toBeNull();
-  });
-
-  it('ignora um scroll pequeno demais', () => {
-    const fixture = render();
-    intro.finish();
-    fixture.detectChanges();
-
-    setScrollY(20);
-    window.dispatchEvent(new Event('scroll'));
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.querySelector('.scroll-cue')).not.toBeNull();
+    expect(cue(fixture)).toBeNull();
   });
 });

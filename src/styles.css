@@ -22,9 +22,27 @@
   --animate-reveal-up: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   background-color: var(--color-brand-bg);
+}
+
+main[id],
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+.reveal-init {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.reveal-in {
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes tooth-bob {
@@ -64,7 +82,111 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ---------- Intro overlay ---------- */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-brand-bg);
+  opacity: 1;
+}
+
+.intro-overlay--exiting {
+  animation: intro-overlay-out 0.35s ease-out both;
+}
+
+.intro-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.intro-overlay--exiting .intro-stage {
+  animation: intro-stage-out 0.35s cubic-bezier(0.55, 0, 0.55, 0.2) both;
+}
+
+.intro-mark__disc {
+  transform-origin: center;
+  animation: intro-disc 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.intro-mark__tooth {
+  animation: intro-tooth 0.5s ease-out 0.25s both;
+}
+
+.intro-wordmark {
+  display: flex;
+  gap: 0.3em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 8vw, 3.4rem);
+  line-height: 1;
+  color: var(--color-brand-dark);
+}
+
+.intro-word {
+  display: flex;
+}
+
+.intro-word--accent {
+  color: var(--color-brand-red);
+}
+
+.intro-letter {
+  display: inline-block;
+  animation: intro-letter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.intro-subtitle {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-brand-red) 75%, transparent);
+  animation: intro-subtitle 0.6s ease-out 0.95s both;
+}
+
+@keyframes intro-disc {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes intro-tooth {
+  from { stroke-dashoffset: 1; fill-opacity: 0; }
+  60% { stroke-dashoffset: 0; fill-opacity: 0; }
+  to { stroke-dashoffset: 0; fill-opacity: 1; }
+}
+@keyframes intro-letter {
+  from { opacity: 0; transform: translateY(0.55em); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes intro-subtitle {
+  from { opacity: 0; letter-spacing: 0.05em; }
+  to { opacity: 1; letter-spacing: 0.3em; }
+}
+@keyframes intro-stage-out {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(calc(-50vw + 11rem), calc(-50vh + 3.5rem)) scale(0.42); }
+}
+@keyframes intro-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal-init {
+    opacity: 1 !important;
+  }
+  .reveal-in {
+    animation: none !important;
+  }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;

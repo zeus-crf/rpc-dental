@@ -47,10 +47,10 @@ import { RevealDirective } from "../../directives/reveal.directive";
         <app-navbar [data]="navbarData" />
         <main id="inicio">
             <app-hero [data]="heroData" appReveal />
-            <app-service-marquee [data]="marqueeData" appReveal />
+            <app-service-marquee [data]="marqueeData" appReveal [revealDelay]="120" />
             <app-services [data]="servicesData" appReveal />
             <app-about [data]="aboutData" appReveal />
-            <app-principles [data]="principlesData" />
+            <app-principles [data]="principlesData" appReveal />
             <app-stats-banner [data]="statsData" appReveal />
             <app-testimonials [data]="testimonialsData" appReveal />
             <app-contact-section [data]="contactData" appReveal />
@@ -64,8 +64,8 @@ export class LandingPageComponent {
     introActive = signal(this.introService.shouldRun());
 
     onIntroDone(): void {
-        this.introService.markSeen();
         this.introActive.set(false);
+        this.introService.notifyIntroDone();
     }
 
     footerData: FooterData = {

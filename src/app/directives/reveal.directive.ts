@@ -6,6 +6,7 @@ import {
   afterNextRender,
   inject,
 } from '@angular/core';
+import { IntroService } from '../services/intro.service';
 
 @Directive({
   selector: '[appReveal]',
@@ -16,11 +17,12 @@ export class RevealDirective {
   @Input() revealDelay = 0;
 
   private host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  private intro = inject(IntroService);
 
   @HostBinding('class.reveal-init') readonly init = true;
 
   constructor() {
-    afterNextRender(() => {
+    afterNextRender(async () => {
       // Inline hosts (bare component elements) ignore transform — promote them
       // to block so the slide works, without disturbing grid/flex/block elements.
       if (getComputedStyle(this.host).display === 'inline') {
@@ -31,6 +33,10 @@ export class RevealDirective {
       if (delay) {
         this.host.style.animationDelay = `${delay}ms`;
       }
+
+      // A cortina de entrada é `position: fixed` e não altera a interseção, então
+      // sem esta espera o conteúdo acima da dobra revelaria atrás dela.
+      await this.intro.contentMayReveal;
 
       const observer = new IntersectionObserver(
         (entries) => {

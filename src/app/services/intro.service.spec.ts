@@ -20,12 +20,16 @@ function stubMatchMedia(matches: boolean): void {
 
 describe('IntroService', () => {
   beforeEach(() => {
-    sessionStorage.clear();
     vi.restoreAllMocks();
     stubMatchMedia(false);
   });
 
-  it('roda na primeira visita do browser', () => {
+  it('roda no browser', () => {
+    expect(makeService('browser').shouldRun()).toBe(true);
+  });
+
+  it('roda de novo em cargas seguintes da mesma sessão', () => {
+    expect(makeService('browser').shouldRun()).toBe(true);
     expect(makeService('browser').shouldRun()).toBe(true);
   });
 
@@ -33,28 +37,42 @@ describe('IntroService', () => {
     expect(makeService('server').shouldRun()).toBe(false);
   });
 
-  it('não roda se a sessão já viu a intro', () => {
-    const service = makeService('browser');
-    service.markSeen();
-    expect(service.shouldRun()).toBe(false);
-  });
-
   it('não roda com prefers-reduced-motion', () => {
     stubMatchMedia(true);
     expect(makeService('browser').shouldRun()).toBe(false);
   });
 
-  it('não roda se sessionStorage lançar', () => {
-    vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-      throw new Error('bloqueado');
-    });
-    expect(makeService('browser').shouldRun()).toBe(false);
-  });
+  describe('contentMayReveal', () => {
+    /** Resolve a corrida entre a promise e um tick, sem depender de timers. */
+    async function resolvido(p: Promise<void>): Promise<boolean> {
+      const sentinela = Symbol('pendente');
+      const vencedor = await Promise.race([
+        p.then(() => 'ok' as const),
+        Promise.resolve(sentinela),
+      ]);
+      return vencedor === 'ok';
+    }
 
-  it('markSeen não propaga erro de sessionStorage', () => {
-    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-      throw new Error('bloqueado');
+    it('segura o conteúdo enquanto a cortina não termina', async () => {
+      const service = makeService('browser');
+      expect(await resolvido(service.contentMayReveal)).toBe(false);
     });
-    expect(() => makeService('browser').markSeen()).not.toThrow();
+
+    it('libera o conteúdo quando a cortina termina', async () => {
+      const service = makeService('browser');
+      service.notifyIntroDone();
+      await expect(service.contentMayReveal).resolves.toBeUndefined();
+    });
+
+    it('libera imediatamente quando a cortina não vai rodar', async () => {
+      stubMatchMedia(true);
+      const service = makeService('browser');
+      await expect(service.contentMayReveal).resolves.toBeUndefined();
+    });
+
+    it('libera imediatamente no servidor', async () => {
+      const service = makeService('server');
+      await expect(service.contentMayReveal).resolves.toBeUndefined();
+    });
   });
 });

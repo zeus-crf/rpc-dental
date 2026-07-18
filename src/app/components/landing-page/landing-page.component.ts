@@ -1,4 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
+import { IntroOverlayComponent } from "../intro-overlay/intro-overlay.component";
+import { IntroService } from "../../services/intro.service";
 import { FooterComponent } from "../footer/footer.component";
 import { FooterData } from "../footer/footer.models";
 import { NavbarComponent } from "../navbar/navbar.component";
@@ -19,6 +21,7 @@ import { TestimonialsComponent } from "../testimonials/testimonials.component";
 import { TestimonialsData } from "../testimonials/testimonials.models";
 import { ContactSectionComponent } from "../contact-section/contact-section.component";
 import { ContactSectionData } from "../contact-section/contact-section.models";
+import { RevealDirective } from "../../directives/reveal.directive";
 
 @Component({
     selector: 'app-landing-page',
@@ -34,23 +37,37 @@ import { ContactSectionData } from "../contact-section/contact-section.models";
         StatsBannerComponent,
         TestimonialsComponent,
         ContactSectionComponent,
+        RevealDirective,
+        IntroOverlayComponent,
     ],
     template: `
+        @if (introActive()) {
+            <app-intro-overlay (done)="onIntroDone()" />
+        }
         <app-navbar [data]="navbarData" />
         <main id="inicio">
-            <app-hero [data]="heroData" />
-            <app-service-marquee [data]="marqueeData" />
-            <app-services [data]="servicesData" />
-            <app-about [data]="aboutData" />
+            <app-hero [data]="heroData" appReveal />
+            <app-service-marquee [data]="marqueeData" appReveal />
+            <app-services [data]="servicesData" appReveal />
+            <app-about [data]="aboutData" appReveal />
             <app-principles [data]="principlesData" />
-            <app-stats-banner [data]="statsData" />
-            <app-testimonials [data]="testimonialsData" />
-            <app-contact-section [data]="contactData" />
+            <app-stats-banner [data]="statsData" appReveal />
+            <app-testimonials [data]="testimonialsData" appReveal />
+            <app-contact-section [data]="contactData" appReveal />
         </main>
-        <app-footer [data]="footerData" />
+        <app-footer [data]="footerData" appReveal />
     `,
 })
 export class LandingPageComponent {
+    private introService = inject(IntroService);
+
+    introActive = signal(this.introService.shouldRun());
+
+    onIntroDone(): void {
+        this.introService.markSeen();
+        this.introActive.set(false);
+    }
+
     footerData: FooterData = {
         tagline: 'Odontologia moderna, humana e acessível. Cuidamos do seu sorriso com a excelência que você merece.',
         socialLinks: [

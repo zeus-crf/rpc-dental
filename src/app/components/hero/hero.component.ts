@@ -12,8 +12,10 @@ const CHIP_POSITION_CLASSES: Record<HeroChipPosition, string> = {
   selector: 'app-hero',
   standalone: true,
   template: `
-    <section class="bg-brand-bg px-6 md:px-10 pt-16 pb-[100px]">
-     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
+    <section class="relative overflow-hidden bg-brand-bg px-6 md:px-10 pt-16 pb-[100px]">
+     <div class="hero-texture hero-texture--grid" aria-hidden="true"></div>
+     <div class="hero-texture hero-texture--grain" aria-hidden="true"></div>
+     <div class="relative z-[1] max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
 
       <div>
         <!-- <div class="inline-flex items-center gap-2 bg-white rounded-full px-4.5 py-2.5 shadow-[0_4px_14px_rgba(26,21,18,0.06)]">

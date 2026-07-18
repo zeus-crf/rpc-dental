@@ -15,7 +15,7 @@ const CHIP_POSITION_CLASSES: Record<HeroChipPosition, string> = {
     <section class="relative overflow-hidden bg-brand-bg px-6 md:px-10 pt-16 pb-[100px]">
      <div class="hero-texture hero-texture--grid" aria-hidden="true"></div>
      <div class="hero-texture hero-texture--grain" aria-hidden="true"></div>
-     <div class="relative z-[1] max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
+     <div class="relative z-[1] max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-10 items-center">
 
       <div>
         <!-- <div class="inline-flex items-center gap-2 bg-white rounded-full px-4.5 py-2.5 shadow-[0_4px_14px_rgba(26,21,18,0.06)]">
@@ -25,16 +25,22 @@ const CHIP_POSITION_CLASSES: Record<HeroChipPosition, string> = {
           <span class="font-body font-bold text-[11.5px] text-brand-red tracking-wide uppercase">{{ data.kicker }}</span>
         </div> -->
 
-        <h1 class="font-display font-extrabold [-webkit-text-stroke:0.7px_currentColor] text-[42px] md:text-[60px] leading-[1.08] text-brand-dark mt-6">
+        <!-- Sem quebras fixas: os segmentos fluem e a largura da coluna decide
+             onde quebrar, então o título respira em telas largas em vez de
+             empilhar sempre igual. text-balance distribui as linhas. -->
+        <h1 class="font-display font-extrabold [-webkit-text-stroke:0.7px_currentColor] text-[clamp(2.4rem,4.6vw,4rem)] leading-[1.08] text-brand-dark mt-6 text-balance">
           @for (line of data.titleLines; track $index) {
             @if (line.underline) {
               <span class="relative inline-block" [class.text-brand-red]="line.accent">{{ line.text }}
                 <svg class="absolute left-0 -bottom-1.5 w-[102%] h-[0.28em]  overflow-visible" viewBox="0 0 300 16" fill="none" preserveAspectRatio="none" aria-hidden="true">
                   <path d="M4 10 C 55 4, 110 13, 165 8 S 255 5, 296 11" stroke="#D62828" stroke-width="5" stroke-linecap="round"/>
                 </svg>
-              </span><br>
+              </span>
             } @else {
-              <span [class.text-brand-red]="line.accent">{{ line.text }}</span><br>
+              <span [class.text-brand-red]="line.accent">{{ line.text }}</span>
+            }
+            @if (!$last) {
+              <span>{{ ' ' }}</span>
             }
           }
         </h1>

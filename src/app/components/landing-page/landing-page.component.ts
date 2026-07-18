@@ -1,5 +1,6 @@
 import { Component, inject, signal } from "@angular/core";
 import { IntroOverlayComponent } from "../intro-overlay/intro-overlay.component";
+import { ScrollCueComponent } from "../scroll-cue/scroll-cue.component";
 import { IntroService } from "../../services/intro.service";
 import { FooterComponent } from "../footer/footer.component";
 import { FooterData } from "../footer/footer.models";
@@ -39,6 +40,7 @@ import { RevealDirective } from "../../directives/reveal.directive";
         ContactSectionComponent,
         RevealDirective,
         IntroOverlayComponent,
+        ScrollCueComponent,
     ],
     template: `
         @if (introActive()) {
@@ -46,8 +48,8 @@ import { RevealDirective } from "../../directives/reveal.directive";
         }
         <app-navbar [data]="navbarData" />
         <main id="inicio">
-            <app-hero [data]="heroData" appReveal />
-            <app-service-marquee [data]="marqueeData" appReveal [revealDelay]="120" />
+            <app-hero [data]="heroData" appReveal revealImmediate />
+            <app-service-marquee [data]="marqueeData" appReveal revealImmediate [revealDelay]="140" />
             <app-services [data]="servicesData" appReveal />
             <app-about [data]="aboutData" appReveal />
             <app-principles [data]="principlesData" appReveal />
@@ -56,6 +58,7 @@ import { RevealDirective } from "../../directives/reveal.directive";
             <app-contact-section [data]="contactData" appReveal />
         </main>
         <app-footer [data]="footerData" appReveal />
+        <app-scroll-cue />
     `,
 })
 export class LandingPageComponent {

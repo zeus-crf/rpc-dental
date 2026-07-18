@@ -70,9 +70,17 @@ describe('IntroService', () => {
       await expect(service.contentMayReveal).resolves.toBeUndefined();
     });
 
-    it('libera imediatamente no servidor', async () => {
+    it('não libera no servidor, para o HTML casar com o estado inicial do cliente', async () => {
       const service = makeService('server');
-      await expect(service.contentMayReveal).resolves.toBeUndefined();
+      expect(service.contentReleased()).toBe(false);
+      expect(await resolvido(service.contentMayReveal)).toBe(false);
+    });
+
+    it('expõe o mesmo estado como signal', () => {
+      const service = makeService('browser');
+      expect(service.contentReleased()).toBe(false);
+      service.notifyIntroDone();
+      expect(service.contentReleased()).toBe(true);
     });
   });
 });

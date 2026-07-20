@@ -28,7 +28,7 @@ import { ContactSectionData } from './contact-section.models';
 
           <div class="relative z-[1] mt-8">
             <div class="flex flex-wrap gap-3">
-              <a [href]="data.whatsappHref"
+              <a [href]="data.whatsappHref" target="_blank" rel="noopener noreferrer"
                  class="flex items-center gap-2 font-body font-bold text-[15px] text-brand-red bg-white px-6 py-3.5 rounded-full no-underline hover:-translate-y-0.5 transition-transform">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="#D62828"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .3-3.4-.7-2.8-1.2-4.6-4.1-4.7-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.2.1.4.1.6-.1l.7-.8c.2-.2.3-.2.6-.1l2 .9c.2.1.4.2.4.3.1.2.1.9-.1 1.5Z"/></svg>
                 {{ data.whatsappLabel }}

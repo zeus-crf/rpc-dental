@@ -233,8 +233,6 @@ section[id] {
 .hero-texture--grid {
   background-image: radial-gradient(circle, var(--color-brand-red) 1px, transparent 1px);
   background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(ellipse 55% 70% at 28% 45%, #000 0%, transparent 72%);
-  mask-image: radial-gradient(ellipse 55% 70% at 28% 45%, #000 0%, transparent 72%);
   animation: texture-grid-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
 }
 

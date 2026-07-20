@@ -8,7 +8,7 @@ import { NavbarData } from "./navbar.models";
     <header [class]="headerClass()">
       <nav [class]="navClass()">
 
-        <a href="#inicio" class="flex items-center gap-2.5 no-underline">
+        <a href="#inicio" (click)="scrollToSection($event, '#inicio')" class="flex items-center gap-2.5 no-underline">
           <svg width="34" height="34" viewBox="0 0 34 34" class="flex-none transition-all duration-300"
                [class.w-8]="scrolled()" [class.h-8]="scrolled()">
             <circle cx="17" cy="17" r="17" fill="#D62828"/>
@@ -24,7 +24,7 @@ import { NavbarData } from "./navbar.models";
         <ul class="hidden md:flex gap-8 list-none p-0 m-0">
           @for (link of data.navLinks; track link.label) {
             <li>
-              <a [href]="link.href"
+              <a [href]="link.href" (click)="scrollToSection($event, link.href)"
                  class="relative font-body text-sm text-brand-dark no-underline transition-colors hover:text-brand-red after:content-[''] after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:w-0 after:rounded-full after:bg-brand-red after:transition-[width] after:duration-300 hover:after:w-full">
                 {{ link.label }}
               </a>
@@ -33,7 +33,7 @@ import { NavbarData } from "./navbar.models";
         </ul>
 
         <!-- CTA desktop -->
-        <a [href]="data.ctaHref" class="group relative overflow-hidden hidden md:flex items-center gap-2 font-body font-bold text-sm text-white bg-brand-red px-6 py-3.5 rounded-full no-underline animate-pulse-ring hover:bg-brand-red-dark transition-colors">
+        <a [href]="data.ctaHref" (click)="scrollToSection($event, data.ctaHref)" target="_blank" rel="noopener noreferrer" class="group relative overflow-hidden hidden md:flex items-center gap-2 font-body font-bold text-sm text-white bg-brand-red px-6 py-3.5 rounded-full no-underline animate-pulse-ring hover:bg-brand-red-dark transition-colors">
           <span class="pointer-events-none absolute top-0 left-0 h-full w-1/3 -skew-x-12 bg-white/30 blur-md -translate-x-[250%] group-hover:translate-x-[420%] transition-transform duration-700 ease-out"></span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="relative z-10 transition-transform duration-300 group-hover:-translate-x-0.5"><path d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3l2.1-2.1c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1v3.4c0 .6-.4 1-1 1C9.9 21.8 2.2 14.1 2.2 4.5c0-.6.4-1 1-1H6.6c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1z" fill="#fff"/></svg>
           <span class="relative z-10">{{ data.ctaLabel }}</span>
@@ -56,11 +56,11 @@ import { NavbarData } from "./navbar.models";
       @if (isOpen()) {
         <div class="md:hidden max-w-[1360px] mx-auto bg-white rounded-3xl shadow-[0_8px_24px_rgba(26,21,18,0.08)] mt-3 p-6 flex flex-col gap-4">
           @for (link of data.navLinks; track link.label) {
-            <a [href]="link.href" (click)="closeMenu()" class="font-body text-base text-brand-dark no-underline">
+            <a [href]="link.href" (click)="scrollToSection($event, link.href)" class="font-body text-base text-brand-dark no-underline">
               {{ link.label }}
             </a>
           }
-          <a [href]="data.ctaHref" (click)="closeMenu()" class="font-body font-bold text-sm text-white bg-brand-red px-6 py-3.5 rounded-full no-underline text-center">
+          <a [href]="data.ctaHref" (click)="scrollToSection($event, data.ctaHref)" target="_blank" rel="noopener noreferrer" class="font-body font-bold text-sm text-white bg-brand-red px-6 py-3.5 rounded-full no-underline text-center">
             {{ data.ctaLabel }}
           </a>
         </div>
@@ -91,6 +91,16 @@ export class NavbarComponent {
             ? 'max-w-[1080px] py-2 bg-white/75 backdrop-blur-md shadow-[0_6px_20px_rgba(26,21,18,0.12)]'
             : 'max-w-[1360px] py-3 bg-white shadow-[0_8px_24px_rgba(26,21,18,0.08)]';
         return `${base} ${surface}`;
+    }
+
+    scrollToSection(event: Event, href: string): void {
+        if (!href?.startsWith('#')) {
+            return;
+        }
+        event.preventDefault();
+        const target = document.getElementById(href.slice(1));
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.closeMenu();
     }
 
     toggleMenu(): void {

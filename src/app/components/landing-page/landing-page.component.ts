@@ -85,7 +85,7 @@ export class LandingPageComponent {
             { label: 'Depoimentos', href: '#depoimentos' },
             { label: 'Contato', href: '#contato' },
         ],
-        contactPhones: ['(21) 98739-6111', '(21) 97658-2002'],
+        contactPhones: ['(21) 97658-2002'],
         contactCity: 'Rio de Janeiro — RJ',
         copyright: '© 2026 RPC Dental. Todos os direitos reservados.',
     };
@@ -99,7 +99,7 @@ export class LandingPageComponent {
             { label: 'Contato', href: '#contato' },
         ],
         ctaLabel: 'Agendar',
-        ctaHref: '#contato',
+        ctaHref: 'https://wa.me/5521976582002?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta.',
     };
 
     heroData: HeroData = {
@@ -112,7 +112,7 @@ export class LandingPageComponent {
         ],
         body: 'Na RPC Dental, unimos tecnologia, conforto e atendimento humano para cuidar do seu sorriso com precisão. Clínica geral, implantes, ortodontia e muito mais.',
         primaryCta: 'Agendar consulta',
-        primaryCtaHref: '#contato',
+        primaryCtaHref: 'https://wa.me/5521976582002?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta.',
         secondaryCta: 'Ver serviços',
         secondaryCtaHref: '#servicos',
         chips: [
@@ -218,10 +218,10 @@ export class LandingPageComponent {
         title: 'Marque sua consulta agora mesmo.',
         body: 'Atendimento rápido pelo WhatsApp ou telefone. Tire suas dúvidas com um especialista sem compromisso.',
         whatsappLabel: 'Chamar no WhatsApp',
-        whatsappHref: '#',
+        whatsappHref: 'https://wa.me/5521976582002?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta.',
         callLabel: 'Ligar agora',
-        callHref: 'tel:+5521987396111',
-        phones: ['(21) 98739-6111', '(21) 97658-2002'],
+        callHref: 'tel:+5521976582002',
+        phones: ['(21) 97658-2002'],
         hoursTitle: 'Horário de funcionamento',
         hours: [
             { day: 'Segunda a Sexta', hours: '08:00 – 19:00' },

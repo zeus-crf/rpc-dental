@@ -50,7 +50,7 @@ const CHIP_POSITION_CLASSES: Record<HeroChipPosition, string> = {
         </p>
 
         <div class="flex flex-wrap gap-4 mt-8">
-          <a [href]="data.primaryCtaHref"
+          <a [href]="data.primaryCtaHref" target="_blank" rel="noopener noreferrer"
              class="group relative overflow-hidden flex items-center gap-2 font-body font-bold text-[15px] text-white bg-brand-red px-7 py-4 rounded-full no-underline shadow-[0_6px_18px_rgba(214,40,40,0.25)] hover:bg-brand-red-dark hover:-translate-y-0.5 transition-all">
             <span class="pointer-events-none absolute top-0 left-0 h-full w-1/3 -skew-x-12 bg-white/30 blur-md -translate-x-[250%] group-hover:translate-x-[420%] transition-transform duration-700 ease-out"></span>
             <span class="relative z-10">{{ data.primaryCta }}</span>

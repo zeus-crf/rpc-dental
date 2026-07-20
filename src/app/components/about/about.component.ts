@@ -13,7 +13,7 @@ import { AboutData } from './about.models';
           <div class="font-body font-bold text-xs tracking-[0.2em] uppercase text-brand-red mb-6">
             — {{ data.eyebrow }}
           </div>
-          <h2 class="font-display font-extrabold text-[44px] md:text-[72px] leading-[0.95] text-brand-dark uppercase">
+          <h2 class="font-display font-extrabold text-[44px] md:text-[72px]  leading-[0.95] text-brand-dark uppercase">
             @for (line of data.titleLines; track $index) {
               <span [class.text-brand-red]="line.accent">{{ line.text }}</span><br>
             }
@@ -63,7 +63,7 @@ import { AboutData } from './about.models';
           <!-- years stat -->
           <div class="relative overflow-hidden rounded-[28px] bg-white p-8 flex flex-col justify-between shadow-[0_10px_30px_rgba(26,21,18,0.05)]">
             <span class="font-body font-bold text-[11px] tracking-[0.2em] uppercase text-brand-red">{{ data.yearsLabel }}</span>
-            <span class="pointer-events-none absolute right-6 -bottom-4 font-display font-extrabold text-[150px] leading-none text-brand-dark/90 select-none">{{ data.yearsBig }}</span>
+            <span class="pointer-events-none absolute -right-8 -bottom-10 font-display font-extrabold text-[300px] leading-none text-brand-dark/90 select-none">{{ data.yearsBig }}</span>
             <div class="relative z-[1] mt-4">
               <span class="font-display font-extrabold text-[52px] leading-none text-brand-red">{{ data.yearsValue }}</span>
               <p class="font-body text-sm text-brand-ink/60 mt-2 max-w-[180px]">{{ data.yearsNote }}</p>

@@ -17,7 +17,7 @@ import { FooterData } from "./footer.models";
           <p class="text-white/50 text-sm font-body leading-relaxed mb-5">{{ data.tagline }}</p>
           <div class="flex gap-3">
             @for (social of data.socialLinks; track social.icon) {
-              <a [href]="social.href" [attr.aria-label]="social.label"
+              <a [href]="social.href" [attr.aria-label]="social.label" target="_blank" rel="noopener noreferrer"
                  class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-red flex items-center justify-center transition-colors">
                 <!-- ícone por tipo -->
                 @switch (social.icon) {
@@ -65,7 +65,7 @@ import { FooterData } from "./footer.models";
       </div>
 
       <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between gap-3">
-        <div class="text-white/40 text-xs font-body">{{ data.copyright }}</div>
+        <div class="text-white/65 text-xs font-body">{{ data.copyright }}</div>
       </div>
      </div>
     </footer>

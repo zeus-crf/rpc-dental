@@ -11,7 +11,7 @@ import { RevealDirective } from '../../directives/reveal.directive';
      <div class="max-w-6xl mx-auto">
       <div class="flex items-center justify-between border-b border-brand-ink/10 pb-4 mb-2">
         <span class="font-body font-bold text-xs tracking-[0.2em] uppercase text-brand-red">— {{ data.eyebrow }}</span>
-        <span class="font-body font-bold text-xs tracking-[0.2em] text-brand-ink/40">{{ data.count }}</span>
+        <span class="font-body font-bold text-xs tracking-[0.2em] text-brand-ink/70">{{ data.count }}</span>
       </div>
 
       @for (item of data.principles; track item.number; let idx = $index) {

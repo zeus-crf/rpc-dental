@@ -74,9 +74,7 @@ export class LandingPageComponent {
     footerData: FooterData = {
         tagline: 'Odontologia moderna, humana e acessível. Cuidamos do seu sorriso com a excelência que você merece.',
         socialLinks: [
-            { icon: 'chat', href: '#', label: 'Fale conosco' },
-            { icon: 'instagram', href: '#', label: 'Instagram' },
-            { icon: 'facebook', href: '#', label: 'Facebook' },
+            { icon: 'chat', href: 'https://wa.me/5521976582002?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta.', label: 'Fale conosco' },
         ],
         navLinks: [
             { label: 'Início', href: '#inicio' },

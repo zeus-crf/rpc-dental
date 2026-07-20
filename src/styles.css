@@ -26,6 +26,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Foco visível para navegação por teclado. Anel duplo (fundo + vermelho da
+   marca) para contrastar em qualquer superfície — claro, escuro ou nos botões
+   vermelhos — sem deslocar o layout. */
+:where(a, button, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-brand-bg),
+    0 0 0 5px var(--color-brand-red);
+  border-radius: 6px;
+}
+
 html,
 body {
   background-color: var(--color-brand-bg);

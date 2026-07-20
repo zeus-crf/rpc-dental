@@ -64,7 +64,7 @@ import { ContactSectionData } from './contact-section.models';
               @for (h of data.hours; track h.day) {
                 <li class="flex items-center justify-between border-b border-brand-ink/8 pb-3 last:border-0 last:pb-0">
                   <span class="font-body text-[14px] text-brand-ink/70">{{ h.day }}</span>
-                  <span class="font-body font-bold text-[14px]" [class]="h.closed ? 'text-brand-ink/35' : 'text-brand-dark'">{{ h.hours }}</span>
+                  <span class="font-body font-bold text-[14px]" [class]="h.closed ? 'text-brand-ink/70' : 'text-brand-dark'">{{ h.hours }}</span>
                 </li>
               }
             </ul>

@@ -41,7 +41,7 @@ import { FooterData } from "./footer.models";
           <ul class="list-none p-0 m-0 flex flex-col gap-3">
             @for (link of data.navLinks; track link.label) {
               <li>
-                <a [href]="link.href" class="text-white/60 hover:text-white text-sm font-body no-underline transition-colors">
+                <a [href]="link.href" (click)="scrollToSection($event, link.href)" class="text-white/60 hover:text-white text-sm font-body no-underline transition-colors">
                   {{ link.label }}
                 </a>
               </li>
@@ -73,4 +73,15 @@ import { FooterData } from "./footer.models";
 })
 export class FooterComponent {
   @Input({ required: true }) data!: FooterData;
+
+  /** Âncoras internas: rola suave até a seção sem deixar o # na URL. Links
+      externos (ex.: WhatsApp) passam direto. */
+  scrollToSection(event: Event, href: string): void {
+    if (!href?.startsWith('#')) {
+      return;
+    }
+    event.preventDefault();
+    const target = document.getElementById(href.slice(1));
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }

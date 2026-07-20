@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ContactSectionData } from './contact-section.models';
 
 @Component({
@@ -79,16 +80,20 @@ import { ContactSectionData } from './contact-section.models';
               <h3 class="font-display font-bold text-[20px] text-brand-dark">{{ data.locationTitle }}</h3>
             </div>
             <p class="font-body text-[14px] leading-relaxed text-brand-ink/60 mb-4">{{ data.locationBody }}</p>
-            <div class="relative h-36 rounded-2xl bg-gradient-to-br from-[#FCEBE9] to-[#F7DAD5] overflow-hidden flex items-center justify-center">
-              <div class="absolute inset-0 opacity-30"
-                   style="background-image: linear-gradient(#D6282822 1px, transparent 1px), linear-gradient(90deg, #D6282822 1px, transparent 1px); background-size: 22px 22px;"></div>
-              <span class="relative flex flex-col items-center">
-                <span class="w-8 h-8 rounded-full bg-brand-red flex items-center justify-center shadow-lg animate-pulse-ring">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 22s7-6 7-12a7 7 0 10-14 0c0 6 7 12 7 12Z"/></svg>
-                </span>
-                <span class="mt-2 font-body font-bold text-[11px] text-brand-dark bg-white/80 rounded-full px-3 py-1">{{ data.locationLabel }}</span>
-              </span>
+            <div class="relative h-56 rounded-2xl overflow-hidden">
+              <iframe
+                [src]="mapSrc"
+                title="Mapa da localização da RPC Dental"
+                class="absolute inset-0 w-full h-full border-0"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
             </div>
+            <a [href]="data.mapLink" target="_blank" rel="noopener noreferrer"
+               class="mt-4 inline-flex items-center gap-2 font-body font-bold text-[14px] text-brand-red no-underline hover:gap-3 transition-all">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6 7-12a7 7 0 10-14 0c0 6 7 12 7 12Z" stroke="#D62828" stroke-width="2"/><circle cx="12" cy="10" r="2.5" stroke="#D62828" stroke-width="2"/></svg>
+              {{ data.locationLabel }}
+            </a>
           </div>
         </div>
       </div>
@@ -97,5 +102,12 @@ import { ContactSectionData } from './contact-section.models';
   `,
 })
 export class ContactSectionComponent {
+  private sanitizer = inject(DomSanitizer);
+
   @Input({ required: true }) data!: ContactSectionData;
+
+  /** iframe src precisa ser marcado como confiável, senão o Angular bloqueia. */
+  get mapSrc(): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.data.mapEmbedUrl);
+  }
 }

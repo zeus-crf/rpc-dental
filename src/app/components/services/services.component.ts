@@ -27,7 +27,7 @@ import { ServicesData, ServiceCard } from './services.models';
       <!-- bento grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 auto-rows-auto">
         @for (card of data.cards; track card.title) {
-          <a [href]="card.href"
+          <a [href]="card.href" (click)="scrollToSection($event, card.href)"
              class="group relative flex flex-col justify-between overflow-hidden rounded-[26px] p-7 no-underline transition-all duration-300 hover:-translate-y-1.5"
              [class]="cardClass(card)">
 
@@ -200,6 +200,17 @@ import { ServicesData, ServiceCard } from './services.models';
 })
 export class ServicesComponent {
   @Input({ required: true }) data!: ServicesData;
+
+  /** Âncoras internas: rola suave até a seção sem deixar o # na URL. Links
+      externos (ex.: WhatsApp) passam direto. */
+  scrollToSection(event: Event, href: string): void {
+    if (!href?.startsWith('#')) {
+      return;
+    }
+    event.preventDefault();
+    const target = document.getElementById(href.slice(1));
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   cardClass(card: ServiceCard): string {
     const surface = card.cta

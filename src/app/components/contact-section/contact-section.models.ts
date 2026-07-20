@@ -19,4 +19,6 @@ export interface ContactSectionData {
   locationTitle: string;
   locationBody: string;
   locationLabel: string;
+  mapEmbedUrl: string;
+  mapLink: string;
 }

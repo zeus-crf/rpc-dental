@@ -84,7 +84,7 @@ export class LandingPageComponent {
             { label: 'Contato', href: '#contato' },
         ],
         contactPhones: ['(21) 97658-2002'],
-        contactCity: 'Rio de Janeiro — RJ',
+        contactCity: 'Duque de Caxias — RJ',
         copyright: '© 2026 RPC Dental. Todos os direitos reservados.',
     };
 
@@ -227,7 +227,9 @@ export class LandingPageComponent {
             { day: 'Domingo', hours: 'Fechado', closed: true },
         ],
         locationTitle: 'Localização',
-        locationBody: 'Estamos localizados no Rio de Janeiro — RJ.',
-        locationLabel: 'RPC Dental · Rio de Janeiro',
+        locationBody: 'R. Mamoré, 35-1 — Vila Santa Cruz, Duque de Caxias — RJ.',
+        locationLabel: 'Como chegar',
+        mapEmbedUrl: 'https://www.google.com/maps?q=-22.648027,-43.289707&z=16&hl=pt-BR&output=embed',
+        mapLink: 'https://www.google.com/maps/dir/?api=1&destination=-22.648027,-43.289707',
     };
 }

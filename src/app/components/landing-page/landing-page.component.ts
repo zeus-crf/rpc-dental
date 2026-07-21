@@ -192,7 +192,7 @@ export class LandingPageComponent {
             { value: 10, suffix: '+', label: 'Anos de experiência' },
             { value: 5000, suffix: '+', label: 'Sorrisos transformados' },
             { value: 320, suffix: '+', label: 'Avaliações positivas' },
-            { value: 98, suffix: '%', label: 'Satisfação dos pacientes' },
+            { value: 100, suffix: '%', label: 'Atendimento humanizado' },
         ],
     };
 

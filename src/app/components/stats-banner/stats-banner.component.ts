@@ -6,10 +6,10 @@ import { StatsBannerData } from './stats-banner.models';
   standalone: true,
   template: `
     <section class="bg-brand-bg px-6 md:px-14 py-6">
-      <div #banner class="max-w-6xl mx-auto rounded-[28px] bg-gradient-to-br from-[#FCEBE9] to-[#F9DEDA] px-6 md:px-10 py-10">
-        <div class="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-brand-red/15">
+      <div #banner class="max-w-6xl mx-auto rounded-[28px] border border-brand-red/20 bg-gradient-to-br from-[#FCEBE9] to-[#F9DEDA] px-6 md:px-10 py-10">
+        <div class="grid grid-cols-2 lg:grid-cols-4">
           @for (stat of data.stats; track stat.label; let i = $index) {
-            <div class="flex flex-col items-center text-center px-4 py-5 lg:py-0">
+            <div [class]="cellClass(i)">
               <span class="font-display font-extrabold text-[44px] md:text-[58px] leading-none text-brand-red">
                 {{ stat.prefix }}{{ display()[i] }}{{ stat.suffix }}
               </span>
@@ -25,6 +25,18 @@ import { StatsBannerData } from './stats-banner.models';
 })
 export class StatsBannerComponent {
   @Input({ required: true }) data!: StatsBannerData;
+
+  /**
+   * Per-cell divider borders. Mobile (2 cols): full-width horizontal line
+   * between the two rows. Desktop (4 cols): vertical lines between columns.
+   */
+  cellClass(i: number): string {
+    const base =
+      'flex flex-col items-center text-center px-4 py-5 lg:py-0 border-brand-red/15 lg:border-t-0';
+    const mobileTop = i >= 2 ? ' border-t' : '';
+    const desktopLeft = i > 0 ? ' lg:border-l' : '';
+    return base + mobileTop + desktopLeft;
+  }
 
   private banner = viewChild<ElementRef<HTMLElement>>('banner');
   display = signal<string[]>([]);
